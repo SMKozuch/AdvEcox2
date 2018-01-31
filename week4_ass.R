@@ -24,7 +24,26 @@ attributes(panel_regression)
 
 residuals <- panel_regression$residuals
 plot(residuals, type='l')
-hist(residuals, breaks = 20)
 
+formula_gpmm_core <- as.formula(growth ~ lag(growth, 1:2) + lly + btot + privo
+                                + dby + log(initial) 
+                                + lly * log(initial) + btot * log(initial) 
+                                + privo * log(initial)
+                                + dby * log(initial) | lag(growth, 1:5))
 
-summary(panel_regression, vcov = vcovHC)
+pgmm_regression <- pgmm(formula_gpmm_core, data = fig_panel, transformation = 'd', model = 'twosteps',
+     robust = T)
+
+summary(pgmm_regression)
+
+formula_gpmm_core_2 <- as.formula(growth ~ lag(growth, 1:2) + lly + btot + privo
+                                + dby + log(initial) 
+                                + lly * log(initial) + btot * log(initial) 
+                                + privo * log(initial)
+                                + dby * log(initial) + school
+                                + log(1+pi) + gov + log(1 + bmp)| lag(growth, 1:5))
+
+pgmm_regression_2 <- pgmm(formula_gpmm_core_2, data = fig_panel, transformation = 'd', model = 'twosteps',
+                        robust = T)
+
+summary(pgmm_regression_2)
