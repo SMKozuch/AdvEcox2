@@ -7,7 +7,7 @@ library(lmtest)
 
 #setwd("C:/Users/Samuel/OneDrive/UvA/S01P03/Advanced Econometrics II/Assignments")
 
-#load the data
+#load the data, 
 fig <- read.dta('FIG.dta')
 
 ##### Panel regression
